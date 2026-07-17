@@ -1,5 +1,6 @@
 package com.telco.integration.service;
 
+import com.telco.integration.dto.CreateTelcoProviderRequest;
 import com.telco.integration.entity.TelcoProvider;
 import com.telco.integration.repository.TelcoProviderRepository;
 import org.springframework.stereotype.Service;
@@ -12,14 +13,14 @@ public class TelcoProviderService {
         this.repository = repository;
     }
 
-    public TelcoProvider createProvider(String providerName, String providerCode, Boolean active){
+    public TelcoProvider createProvider(CreateTelcoProviderRequest request){
 //        if(repository.existsByProviderCode(providerCode)){
 //            throw new IllegalArgumentException("Provider code already exists.");
 //        }
         TelcoProvider provider = new TelcoProvider();
-        provider.setActive(active);
-        provider.setProviderCode(providerCode);
-        provider.setProviderName(providerName);
+        provider.setActive(false);
+        provider.setProviderCode(request.getProviderCode());
+        provider.setProviderName(request.getProviderName());
 
         return repository.save(provider);
     }
